@@ -1,0 +1,23 @@
+<mat-form-field class="example-full-width">
+  <mat-label>omschrijving:</mat-label>
+  <form [formGroup]="autocompleteFormulier">
+    <input type="text"
+           placeholder="omschrijving"
+           aria-label="Text"
+           matInput
+           formControlName="omschrijving"
+           [matAutocomplete]="auto"
+           (selectionchange)="autocompleteChange()"
+    >
+    <mat-autocomplete #auto="matAutocomplete">
+      @for (omschrijvingbeknopt of filteredOmschrijvingen | async; track omschrijvingbeknopt) {
+        <mat-option [value]="omschrijvingbeknopt.inhoud">
+          {{ omschrijvingbeknopt.inhoud }}
+          <button matSuffix mat-icon-button aria-label="Clear" (click)="deleteOmschrijving(omschrijvingbeknopt.id)">
+            <mat-icon>close</mat-icon>
+          </button>
+        </mat-option>
+      }
+    </mat-autocomplete>
+  </form>
+</mat-form-field>

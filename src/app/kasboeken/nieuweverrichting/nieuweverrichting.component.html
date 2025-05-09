@@ -1,0 +1,53 @@
+<link rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0&icon_names=save"/>
+<form [formGroup]="formulier">
+  <table>
+    <tr>
+      <td>
+        <mat-form-field>
+          <mat-label>volgnr.:</mat-label>
+          <input matInput type="number" formControlName="volgnummer" min="1" max="1000" id="focusInput">
+        </mat-form-field>
+      </td>
+      <td>
+        <mat-form-field>
+          <mat-label>dag:</mat-label>
+          <input matInput type="number" formControlName="dag" min="1" max="31">
+        </mat-form-field>
+      </td>
+      <td>
+        <app-omschrijving [afdelingId]="afdelingId" [reset]="resetOmschrijvingControl" (autocompleteEvent)="autocompleteHandler($event)"></app-omschrijving>
+      </td>
+      <td>
+        <mat-form-field>
+          <mat-label>bedrag:</mat-label>
+          <input matInput type="number" formControlName="bedrag">
+        </mat-form-field>
+      </td>
+      <td>
+        <table>
+          <tr><td>ticket:</td></tr>
+          <tr><td><mat-checkbox formControlName="ticket"></mat-checkbox></td></tr>
+        </table>
+      </td>
+      <td>
+        <mat-form-field>
+          <mat-label>type:</mat-label>
+          <mat-select formControlName="type">
+            @for (type of types; track type.id) {
+            <mat-option [value]="type.id">{{type.naam}}</mat-option>
+            }
+          </mat-select>
+        </mat-form-field>
+      </td>
+      <td>
+        <!--
+        <button mat-mini-fab aria-label="opslaan" (click)="verrichtingToevoegen()">
+          <mat-icon class="material-symbols-outlined">save</mat-icon>
+        </button>
+        -->
+        <button mat-button (click)="verrichtingToevoegen()">toevoegen</button>
+      </td>
+    </tr>
+  </table>
+</form>

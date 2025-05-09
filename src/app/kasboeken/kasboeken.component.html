@@ -1,29 +1,36 @@
 <section>
   <h2>Kasboeken</h2>
-  <form [formGroup]="kasboekFormulier" id="kasboekformulier">
-    <label>Afdeling:
-      <select name="afdeling" id="afdeling" form="kasboekformulier" formControlName="afdeling">
-        <option value="1">Brussel Economie</option>
-        <option value="2">Brussel Rue Verte</option>
-        <option value="3">Leuven</option>
-        <option value="4">Oostende</option>
-      </select>
-    </label>
-    <label>Jaar:
-      <select name="jaar" id="jaar" form="kasboekformulier" formControlName="jaar">
-        <option value="2024">2024</option>
-        <option value="2023">2023</option>
-        <option value="2022">2022</option>
-      </select>
-    </label>
-    <label>Maand:
-      <select name="maand" id="maand" form="kasboekformulier" formControlName="maand">
-        <option value="1">1</option>
-        <option value="2">2</option>
-        <option value="3">3</option>
-      </select>
-    </label>
+  <form [formGroup]="kasboekFormulier">
+  <mat-form-field>
+    <mat-label>Afdeling:</mat-label>
+    <mat-select formControlName="afdeling" (selectionChange)="afdelingHandler()">
+      @for (afdeling of afdelingen; track afdeling.id) {
+        <mat-option [value]="afdeling.id">{{afdeling.naam}}</mat-option>
+      }
+    </mat-select>
+  </mat-form-field>
+  <mat-form-field>
+    <mat-label>Jaar:</mat-label>
+    <mat-select formControlName="jaar" (selectionChange)="jaarHandler()">
+      @for (jaar of jaren; track jaar) {
+        <mat-option [value]="jaar">{{jaar}}</mat-option>
+      }
+    </mat-select>
+  </mat-form-field>
+  <mat-form-field>
+    <mat-label>Maand:</mat-label>
+    <mat-select formControlName="maand" (selectionChange)="maandHandler()">
+      @for (maand of maanden; track maand) {
+        <mat-option [value]="maand">{{maand}}</mat-option>
+      }
+    </mat-select>
+  </mat-form-field>
   </form>
-  <h4>Autocomplete demo:</h4>
-  <omschrijvingen-input></omschrijvingen-input>
+  <verrichtingen-table
+    [hidden]="tabelIsOnzichtbaar"
+    [afdelingId]="afdelingId"
+    [jaar]="jaar"
+    [maand]="maand">
+  </verrichtingen-table>
+
 </section>

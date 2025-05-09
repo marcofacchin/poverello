@@ -1,0 +1,54 @@
+table {
+  width: 75%;
+}
+
+.mat-mdc-row {
+  height: 1rem;
+}
+
+.mat-column-volgnummer {
+  width: 50px;
+}
+.mat-column-dag {
+  width: 50px;
+}
+.mat-column-bedragin {
+  width: 50px;
+}
+.mat-column-bedraguit {
+  width: 50px;
+}
+.mat-column-ticket {
+  width: 50px;
+}
+.mat-column-type {
+  width: 50px;
+}
+.mat-column-wijzig {
+  width: 100px;
+}
+.mat-column-cancel {
+  width: 100px;
+}
+.mat-column-delete {
+  width: 150px;
+}
+
+.mat-mdc-row .mat-mdc-cell {
+/*  border-bottom: 1px solid transparent;
+  border-top: 1px solid transparent;*/
+/*  cursor: pointer;*/
+}
+
+.mat-mdc-row:hover .mat-mdc-cell {
+  border-color: currentColor;
+  /*height: 3rem;*/
+}
+
+.mat-mdc-cell .verbergen {
+  display: none;
+}
+
+.mat-mdc-row:hover .verbergen {
+  display: inline-block;
+}
