@@ -93,10 +93,7 @@
           }
         },
         "deploy": {
-          "builder": "angular-cli-ghpages:deploy",
-          "options": {
-            "baseHref": "https://marcofacchin.github.io/ng-http-resource/"
-          }
+          "builder": "angular-cli-ghpages:deploy"
         }
       }
     }
