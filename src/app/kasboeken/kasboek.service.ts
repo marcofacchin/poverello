@@ -1,6 +1,9 @@
 import { Injectable } from '@angular/core';
 import {Verrichting} from './verrichting';
 
+//MOCK
+import kasboek_mock from './mockdata_kasboek.json';
+
 @Injectable({
   providedIn: 'root'
 })
@@ -8,25 +11,28 @@ export class KasboekService {
   url = 'http://localhost:8080/kasboeken';
 
   async getJaren(afdelingId: number): Promise<number[]> {
-    const jarenUrl = this.url + `/${afdelingId}/jaren`;
+/*    const jarenUrl = this.url + `/${afdelingId}/jaren`;
     const data = await fetch(jarenUrl);
-    return await data.json() ?? [];
+    return await data.json() ?? [];*/
+    return [2023, 2024];
   }
 
   async getMaanden(afdelingId: number, jaar: number): Promise<number[]> {
-    const maandenUrl = this.url + `/${afdelingId}/${jaar}/maanden`;
+/*    const maandenUrl = this.url + `/${afdelingId}/${jaar}/maanden`;
     const data = await fetch(maandenUrl);
-    return await data.json() ?? [];
+    return await data.json() ?? [];*/
+    return [6,7];
   }
 
   async getVerrichtingen(afdelingId: number, jaar: number, maand: number) {
-    const verrichtingUrl = this.url + `/${afdelingId}/${jaar}/${maand}`;
+/*    const verrichtingUrl = this.url + `/${afdelingId}/${jaar}/${maand}`;
     const data = await fetch(verrichtingUrl);
     if (data.ok) {
       return await data.json() ?? [];
     } else {
       console.error('Fout bij ophalen verrichtingen');
-    }
+    }*/
+    return kasboek_mock;
   }
 
   async postVerrichting(kasboekId: number, nieuweVerrichting: Verrichting) {

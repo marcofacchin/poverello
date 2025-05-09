@@ -53,12 +53,13 @@ export class VerrichtingenTabel implements OnChanges, AfterViewInit {
     if (!isNaN(this.afdelingId) && !isNaN(this.jaar) && !isNaN(this.maand)) {
       this.kasboekService.getVerrichtingen(this.afdelingId, this.jaar, this.maand)
         .then(kasboekdata => {
+          console.log(kasboekdata);
           this.verrichtingen = kasboekdata.verrichtingen;
           this.dataSource.data = this.verrichtingen;
           this.kasboekId = kasboekdata.id;
           console.log("kasboek geladen");
-          console.log('boljetten: ' + kasboekdata.cash.totaalBedragBiljetten);
-          console.log('totaalBedragMunten2E: ' + kasboekdata.cashInEuro.totaalBedragMunten2E);
+          //console.log('boljetten: ' + kasboekdata.cash.totaalBedragBiljetten);
+          //console.log('totaalBedragMunten2E: ' + kasboekdata.cashInEuro.totaalBedragMunten2E);
         })
         .catch((error) => {
           console.error('Verrichtingen konden niet worden opgehaald: ' + error);

@@ -38,7 +38,7 @@ export class KasboekenComponent implements OnInit {
 
   constructor() {
     this.afdelingService.getAfdelingen()
-      .then((afdelingen) => this.afdelingen = afdelingen)
+      .then((afdelingen) => {this.afdelingen = afdelingen; console.log(afdelingen);})
       .catch((error) => console.error('Kon afdelingen niet ophalen: ' + error));
   }
 
@@ -58,6 +58,7 @@ export class KasboekenComponent implements OnInit {
       this.kasboekService.getJaren(parseInt(afdelingId))
         .then((jaren) => {
           this.jaren = jaren;
+          console.log(jaren);
           if (this.jaren.length !== 0) {
             this.kasboekFormulier.controls['jaar'].enable();
             this.kasboekFormulier.controls['maand'].disable();
@@ -81,6 +82,7 @@ export class KasboekenComponent implements OnInit {
         .then((maanden) => {
           this.maanden = maanden;
           console.log('maanden: ' + maanden);
+          console.log(maanden);
           if (this.maanden.length !== 0) {
             this.kasboekFormulier.controls['maand'].enable();
           } else {

@@ -1,0 +1,16 @@
+{
+  "id": 15, "afdelingId": 2, "jaar": 2023, "maand": 6, "beginSaldo": 1000, "verrichtingen":
+[
+  {"bedrag": 1000, "dag": 1, "kasticket": false, "omschrijving": "SALDO", "verrichtingsType": "N", "volgnummer": 0}
+  ,
+  {"bedrag": -453.23, "dag": 1, "kasticket": true, "omschrijving": "Colruyt", "verrichtingsType": "N", "volgnummer": 1}
+  ,
+  {"bedrag": 15.56, "dag": 2, "kasticket": false, "omschrijving": "Dagontvangst", "verrichtingsType": "N", "volgnummer": 2}
+  ,
+  {"bedrag": -25.36, "dag": 2, "kasticket": true, "omschrijving": "brood", "verrichtingsType": "N", "volgnummer": 3}
+  ,
+  {"bedrag": 300, "dag": 3, "kasticket": false, "omschrijving": "Homer Simpson", "verrichtingsType": "VERBL", "volgnummer": 4}
+  ,
+  {"bedrag": 450, "dag": 3, "kasticket": false, "omschrijving": "Barney Gumble", "verrichtingsType": "VERBL", "volgnummer": 5}
+]
+}
