@@ -6,6 +6,7 @@ import {Verrichting} from './verrichting';
 })
 export class KasboekService {
   url = 'http://localhost:8080/kasboeken';
+  //url = 'https://marcofacchin.github.io/poverello';
 
   async getJaren(afdelingId: number): Promise<number[]> {
     const jarenUrl = this.url + `/${afdelingId}/jaren`;
