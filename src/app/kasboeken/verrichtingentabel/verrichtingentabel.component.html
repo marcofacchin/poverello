@@ -60,7 +60,7 @@
 
   <!-- Bedrag Column -->
   <ng-container matColumnDef="bedragin">
-    <th mat-header-cell *matHeaderCellDef> IN </th>
+    <th mat-header-cell *matHeaderCellDef> IN(€) </th>
     <td mat-cell *matCellDef="let element">
       <div *ngIf="element.wijzig; else toonData">
         <!-- form input -->
@@ -76,7 +76,7 @@
   </ng-container>
   <!-- Bedrag Column -->
   <ng-container matColumnDef="bedraguit">
-    <th mat-header-cell *matHeaderCellDef> UIT </th>
+    <th mat-header-cell *matHeaderCellDef> UIT(€) </th>
     <td mat-cell *matCellDef="let element">
       <div *ngIf="element.wijzig; else toonData">
         <!-- form input -->

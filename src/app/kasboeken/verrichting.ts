@@ -4,5 +4,5 @@ export interface Verrichting {
   bedrag: number;
   omschrijving: string;
   kasticket: boolean;
-  verrichtingsType: string;
+  // verrichtingsType: string;
 }

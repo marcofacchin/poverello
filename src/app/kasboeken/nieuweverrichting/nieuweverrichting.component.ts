@@ -63,7 +63,6 @@ export class NieuweverrichtingComponent implements OnInit, OnChanges {
     omschrijving: new FormControl(''),
     bedrag: new FormControl(''),
     ticket: new FormControl(false),
-    type: new FormControl(''),
   });
   omschrijving: string;
   resetOmschrijvingControl: number = 0;
@@ -77,7 +76,6 @@ export class NieuweverrichtingComponent implements OnInit, OnChanges {
     const bedragInput = this.formulier.controls.bedrag.value;
     const volgnummerInput = this.formulier.controls.volgnummer.value;
     const dagInput = this.formulier.controls.dag.value;
-    const typeInput = this.formulier.controls.type.value;
     let ticketInput = false;
     if (this.formulier.controls.ticket.value !== null) {
       ticketInput = this.formulier.controls.ticket.value;
@@ -86,16 +84,14 @@ export class NieuweverrichtingComponent implements OnInit, OnChanges {
     console.log("ticketInput: " + ticketInput);
     if (bedragInput !== null
       && volgnummerInput !== null
-      && dagInput !== null
-      && typeInput !== null) {
+      && dagInput !== null) {
       const nieuweverrichting = {
         volgnummer: parseInt(volgnummerInput),
         dag: parseInt(dagInput),
         bedrag: parseFloat(bedragInput),
         afdelingId: this.afdelingId,
         omschrijving: this.omschrijving,
-        kasticket: ticketInput,
-        verrichtingsType: typeInput
+        kasticket: ticketInput
       };
       this.kasboekService.postVerrichting(this.kasboekId, nieuweverrichting)
         .then(() => {
@@ -103,7 +99,6 @@ export class NieuweverrichtingComponent implements OnInit, OnChanges {
           this.focusOpVolgnummer();
           this.formulier.controls.bedrag.reset();
           this.formulier.controls.ticket.reset();
-          this.formulier.controls.type.reset();
           this.resetOmschrijvingControl++;
         })
         .catch((error) => console.error(error));
@@ -116,7 +111,6 @@ export class NieuweverrichtingComponent implements OnInit, OnChanges {
         + "\ndag:" + dagInput
         + "\nomschrijving:" + this.omschrijving
         + "\nkasticket:" + ticketInput
-        + "\ntype:" + typeInput
       );
     }
   }
