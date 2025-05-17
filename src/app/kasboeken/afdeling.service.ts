@@ -5,7 +5,8 @@ import { Afdeling } from './afdeling';
   providedIn: 'root'
 })
 export class AfdelingService {
-  url = 'http://localhost:8080/afdelingen';
+  //url = 'http://localhost:8080/afdelingen';
+  url = 'https://poverello.onrender.com/afdelingen';
 
   async getAfdelingen(): Promise<Afdeling[]> {
     const data = await fetch(this.url);
