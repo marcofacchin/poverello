@@ -5,8 +5,8 @@ import {Verrichting} from './verrichting';
   providedIn: 'root'
 })
 export class KasboekService {
-  url = 'http://localhost:8080/kasboeken';
-  //url = 'https://marcofacchin.github.io/poverello';
+  //url = 'http://localhost:8080/kasboeken';
+  url = 'https://poverello.onrender.com/kasboeken';
 
   async getJaren(afdelingId: number): Promise<number[]> {
     const jarenUrl = this.url + `/${afdelingId}/jaren`;

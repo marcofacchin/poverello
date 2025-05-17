@@ -5,8 +5,8 @@ import { Omschrijvingbeknopt } from './omschrijvingbeknopt';
   providedIn: 'root'
 })
 export class OmschrijvingService {
-  url = 'http://localhost:8080/omschrijvingen';
-  //url = 'https://marcofacchin.github.io/poverello';
+  //url = 'http://localhost:8080/omschrijvingen';
+  url = 'https://poverello.onrender.com/omschrijvingen';
 
   async getOmschrijvingen(afdelingId: number): Promise<Omschrijvingbeknopt[]> {
     const omschrijvingenUrl = this.url + `/${afdelingId}`;
