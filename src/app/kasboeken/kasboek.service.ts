@@ -1,12 +1,12 @@
 import { Injectable } from '@angular/core';
 import {Verrichting} from './verrichting';
+import { environment } from '../../environments/environment';
 
 @Injectable({
   providedIn: 'root'
 })
 export class KasboekService {
-  url = 'http://localhost:8080/kasboeken';
-  //url = 'https://marcofacchin.github.io/poverello';
+  url = environment.apiUrl + '/kasboeken';
 
   async getJaren(afdelingId: number): Promise<number[]> {
     const jarenUrl = this.url + `/${afdelingId}/jaren`;

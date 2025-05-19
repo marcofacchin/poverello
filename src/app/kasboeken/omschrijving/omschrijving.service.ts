@@ -1,12 +1,12 @@
 import { Injectable } from '@angular/core';
 import { Omschrijvingbeknopt } from './omschrijvingbeknopt';
+import { environment} from '../../../environments/environment';
 
 @Injectable({
   providedIn: 'root'
 })
 export class OmschrijvingService {
-  url = 'http://localhost:8080/omschrijvingen';
-  //url = 'https://marcofacchin.github.io/poverello';
+  url = environment.apiUrl + '/omschrijvingen';
 
   async getOmschrijvingen(afdelingId: number): Promise<Omschrijvingbeknopt[]> {
     const omschrijvingenUrl = this.url + `/${afdelingId}`;
