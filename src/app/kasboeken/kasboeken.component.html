@@ -1,6 +1,7 @@
 <section>
   <h2>Kasboeken</h2>
-  <form [formGroup]="kasboekFormulier">
+  <div id="loading" class="loading" [hidden]="paginaGeladen">De pagina wordt geladen, dit kan enkele minuten duren...</div>
+  <form [formGroup]="kasboekFormulier" [hidden]="verbergFormulier">
   <mat-form-field>
     <mat-label>Afdeling:</mat-label>
     <mat-select formControlName="afdeling" (selectionChange)="afdelingHandler()">

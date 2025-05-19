@@ -35,10 +35,16 @@ export class KasboekenComponent implements OnInit {
   jaar: number;
   maand: number;
   tabelIsOnzichtbaar = false;
+  paginaGeladen = false;
+  verbergFormulier = true;
 
   constructor() {
     this.afdelingService.getAfdelingen()
-      .then((afdelingen) => this.afdelingen = afdelingen)
+      .then((afdelingen) => {
+        this.afdelingen = afdelingen;
+        this.paginaGeladen = true;
+        this.verbergFormulier = false;
+      })
       .catch((error) => console.error('Kon afdelingen niet ophalen: ' + error));
   }
 
