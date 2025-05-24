@@ -36,7 +36,6 @@ export class KasboekenComponent implements OnInit {
   maand: number;
   tabelIsOnzichtbaar = false;
   paginaGeladen = false;
-  paginaNietGeladen = true;
   verbergFormulier = true;
   laadtijd: number;
 
@@ -47,8 +46,8 @@ export class KasboekenComponent implements OnInit {
         this.laadtijd = (new Date().getTime() - start)/60000;
         this.afdelingen = afdelingen;
         this.paginaGeladen = true;
-        this.paginaNietGeladen = false;
         this.verbergFormulier = false;
+        console.log("Geladen in " + this.laadtijd + " minuten");
       })
       .catch((error) => console.error('Kon afdelingen niet ophalen: ' + error));
   }
