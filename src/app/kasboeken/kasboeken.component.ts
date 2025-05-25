@@ -41,7 +41,7 @@ export class KasboekenComponent implements OnInit {
 
   constructor() {
     const start = new Date().getTime();
-    this.afdelingService.getAfdelingen()
+    this.afdelingService.getAfdelingen('NL')
       .then((afdelingen) => {
         this.laadtijd = (new Date().getTime() - start)/60000;
         this.afdelingen = afdelingen;

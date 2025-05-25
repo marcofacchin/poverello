@@ -8,8 +8,8 @@ import { environment } from '../../environments/environment';
 export class AfdelingService {
   url = environment.apiUrl + '/afdelingen';
 
-  async getAfdelingen(): Promise<Afdeling[]> {
-    const data = await fetch(this.url);
+  async getAfdelingen(taal: String): Promise<Afdeling[]> {
+    const data = await fetch(this.url + `/${taal}`);
     return await data.json() ?? [];
   }
 }

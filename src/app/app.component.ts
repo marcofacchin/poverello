@@ -13,7 +13,7 @@ import {HomeComponent} from './home/home.component';
       <a [routerLink]="['/']">
         <header class="brand-name">
           <!--<img class="brand-logo" src="/assets/logo.svg" alt="logo" aria-hidden="true">-->
-          <h1>Poverello Applicaties</h1>
+          <h1>Adminello</h1>
         </header>
       </a>
       <section class="content">
