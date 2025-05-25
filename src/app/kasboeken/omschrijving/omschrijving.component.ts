@@ -67,6 +67,10 @@ export class OmschrijvingComponent implements OnInit, OnChanges {
       this.omschrijvingService.getOmschrijvingen(this.afdelingId)
         .then(beknopteomschrijvingen => {
           this.omschrijvingen = beknopteomschrijvingen;
+          this.filteredOmschrijvingen = this.autocompleteFormulier.controls.omschrijving.valueChanges.pipe(
+            startWith(''),
+            map(value => this._filter(value || '')),
+          );
         })
         .catch((error) => console.error('Omschrijvingen konden niet worden opgehaald: ' + error));
     }
@@ -91,6 +95,9 @@ export class OmschrijvingComponent implements OnInit, OnChanges {
     console.log("omschrijving met id nr " + id + " wordt verwijderd");
     this.omschrijvingService.verwijderOmschrijving(id)
       .catch((error) => console.error('Omschrijving kon niet worden verwijderd: ' + error))
-}
+      .finally(
+        () => this.ngOnChanges()
+      );
+  }
 
 }

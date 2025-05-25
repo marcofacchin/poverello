@@ -16,10 +16,7 @@ export class OmschrijvingService {
 
   async verwijderOmschrijving(id: number) {
     const omschrijvingenUrl = this.url + `/${id}`;
-    const response = await fetch(omschrijvingenUrl,
-      {
-        method: "DELETE"
-      });
+    const response = await fetch(omschrijvingenUrl, {method: "DELETE"});
     if (!response.ok) {
       console.error('Fout bij verwijderen omschrijving');
     }
