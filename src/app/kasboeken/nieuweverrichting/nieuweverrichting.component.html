@@ -34,8 +34,8 @@
         <mat-form-field>
           <mat-label>type:</mat-label>
           <mat-select formControlName="type">
-            @for (type of types; track type.id) {
-            <mat-option [value]="type.id">{{type.naam}}</mat-option>
+            @for (type of verrichtingstypesArray; track type) {
+              <mat-option [value]="type">{{type}}</mat-option>
             }
           </mat-select>
         </mat-form-field>

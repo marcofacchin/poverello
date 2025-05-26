@@ -18,9 +18,10 @@ import {MatCheckbox} from '@angular/material/checkbox';
 import {MatButton, MatIconButton, MatMiniFabButton} from '@angular/material/button';
 import {MatIcon} from '@angular/material/icon';
 import {KasboekService} from '../kasboek.service';
-import {AsyncPipe} from '@angular/common';
+import {AsyncPipe, NgForOf} from '@angular/common';
 import {MatAutocomplete, MatAutocompleteTrigger} from '@angular/material/autocomplete';
 import {OmschrijvingComponent} from '../omschrijving/omschrijving.component';
+import {VerrichtingsType} from './verrichtings-type';
 
 @Component({
   selector: 'nieuweverrichting-formulier',
@@ -42,18 +43,13 @@ import {OmschrijvingComponent} from '../omschrijving/omschrijving.component';
     MatAutocomplete,
     MatAutocompleteTrigger,
     MatButton,
-    OmschrijvingComponent
+    OmschrijvingComponent,
+    NgForOf
   ],
   templateUrl: './nieuweverrichting.component.html',
   styleUrl: './nieuweverrichting.component.css'
 })
 export class NieuweverrichtingComponent implements OnInit, OnChanges {
-  types = [
-    {naam: "N", id: 0},
-    {naam: "DONTV", id: 1},
-    {naam: "VERBL", id: 2},
-    {naam: "TRF", id: 3},
-  ];
   @Input({transform: numberAttribute}) afdelingId: number;
   @Input({transform: numberAttribute}) kasboekId: number;
   @Output() updateVerrichtingenTabelEvent = new EventEmitter<boolean>();
@@ -63,36 +59,41 @@ export class NieuweverrichtingComponent implements OnInit, OnChanges {
     omschrijving: new FormControl(''),
     bedrag: new FormControl(''),
     ticket: new FormControl(false),
+    type: new FormControl(''),
   });
   omschrijving: string;
   resetOmschrijvingControl: number = 0;
   kasboekService: KasboekService = inject(KasboekService);
+  verrichtingstypesArray = Object.values(VerrichtingsType).slice(0,13);
 
   constructor(private renderer: Renderer2) {
   }
 
   verrichtingToevoegen() {
     console.log("nieuwe verrichting wordt toegevoegd");
-    const bedragInput = this.formulier.controls.bedrag.value;
     const volgnummerInput = this.formulier.controls.volgnummer.value;
     const dagInput = this.formulier.controls.dag.value;
+    const bedragInput = this.formulier.controls.bedrag.value;
+    const typeInput = this.formulier.controls.type.value;
     let ticketInput = false;
     if (this.formulier.controls.ticket.value !== null) {
       ticketInput = this.formulier.controls.ticket.value;
     }
-    console.log("ticketInput value: " + this.formulier.controls.ticket.value);
-    console.log("ticketInput: " + ticketInput);
     if (bedragInput !== null
       && volgnummerInput !== null
-      && dagInput !== null) {
+      && dagInput !== null
+      && typeInput !== null
+    ) {
       const nieuweverrichting = {
         volgnummer: parseInt(volgnummerInput),
         dag: parseInt(dagInput),
         bedrag: parseFloat(bedragInput),
         afdelingId: this.afdelingId,
         omschrijving: this.omschrijving,
-        kasticket: ticketInput
+        kasticket: ticketInput,
+        verrichtingsType: typeInput
       };
+      console.log(JSON.stringify(nieuweverrichting));
       this.kasboekService.postVerrichting(this.kasboekId, nieuweverrichting)
         .then(() => {
           this.updateVerrichtingenTabelEvent.emit(true);
@@ -111,6 +112,7 @@ export class NieuweverrichtingComponent implements OnInit, OnChanges {
         + "\ndag:" + dagInput
         + "\nomschrijving:" + this.omschrijving
         + "\nkasticket:" + ticketInput
+        + "\ntype:" + typeInput
       );
     }
   }
@@ -121,6 +123,8 @@ export class NieuweverrichtingComponent implements OnInit, OnChanges {
 
   ngOnInit() {
     this.focusOpVolgnummer();
+    console.log("verrichtingstypesssss:");
+    console.log(this.verrichtingstypesArray);
   }
 
   ngOnChanges() {
