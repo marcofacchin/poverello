@@ -26,6 +26,7 @@ import {OmschrijvingComponent} from '../omschrijving/omschrijving.component';
 import {MatSort, MatSortHeader, Sort, SortHeaderArrowPosition} from '@angular/material/sort';
 import {LiveAnnouncer} from '@angular/cdk/a11y';
 import {LeegAlsBlancoTypePipe} from './leeg-als-blanco-type.pipe';
+import {Cashmunten} from '../cashmunten/cashmunten.component';
 
 /**
  * @title Basic use of `<table mat-table>`
@@ -35,7 +36,7 @@ import {LeegAlsBlancoTypePipe} from './leeg-als-blanco-type.pipe';
   styleUrl: 'verrichtingentabel.component.css',
   templateUrl: 'verrichtingentabel.component.html',
   standalone: true,
-  imports: [MatTableModule, KruisjeAlsTicketPipe, BedragInOfUitPipe, NieuweverrichtingComponent, NgIf, MatButton, MatFormField, MatInput, MatLabel, ReactiveFormsModule, MatCheckbox, OmschrijvingComponent, MatSortHeader, MatSort, LeegAlsBlancoTypePipe],
+  imports: [MatTableModule, KruisjeAlsTicketPipe, BedragInOfUitPipe, NieuweverrichtingComponent, NgIf, MatButton, MatFormField, MatInput, MatLabel, ReactiveFormsModule, MatCheckbox, OmschrijvingComponent, MatSortHeader, MatSort, LeegAlsBlancoTypePipe, Cashmunten],
 })
 
 export class VerrichtingenTabel implements OnChanges, AfterViewInit {

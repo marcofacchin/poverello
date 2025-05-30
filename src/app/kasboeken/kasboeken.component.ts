@@ -35,6 +35,7 @@ export class KasboekenComponent implements OnInit {
   afdelingId: number;
   jaar: number;
   maand: number;
+  kasboekId: number;
   tabelIsOnzichtbaar = false;
   paginaGeladen = false;
   verbergFormulier = true;
@@ -60,6 +61,18 @@ export class KasboekenComponent implements OnInit {
 
   public zetMaandInputUit() {
     this.kasboekFormulier.controls['maand'].disable();
+  }
+
+  getKasboekId() {
+    if (!isNaN(this.afdelingId) && !isNaN(this.jaar) && !isNaN(this.maand)) {
+      this.kasboekService.getKasboekId(this.afdelingId, this.jaar, this.maand)
+        .then((data) => {
+          this.kasboekId = data;
+        })
+        .catch((error) => {
+          console.error('Kasboekid konden niet worden opgehaald: ' + error);
+        });
+    }
   }
 
   public afdelingHandler() {
@@ -111,6 +124,9 @@ export class KasboekenComponent implements OnInit {
       this.afdelingId = parseInt(afdelingId);
       this.jaar = parseInt(jaar);
       this.maand = parseInt(maand);
+      this.kasboekService.getKasboekId(this.afdelingId, this.jaar, this.maand)
+        .then(data => this.kasboekId = data)
+        .catch(error => console.error('Kasboek id kon niet worden opgehaald: ' + error));
       this.tabelIsOnzichtbaar = false;
     }
   }

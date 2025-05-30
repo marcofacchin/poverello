@@ -30,6 +30,16 @@ export class KasboekService {
     }
   }
 
+  async getKasboekId(afdelingId: number, jaar: number, maand: number) {
+    const kasboekIdUrl = this.url + `/${afdelingId}/${jaar}/${maand}/kasboekid`;
+    const data = await fetch(kasboekIdUrl);
+    if (data.ok) {
+      return await data.json() ?? [];
+    } else {
+      console.error('Fout bij ophalen kasboekid');
+    }
+  }
+
   async postVerrichting(kasboekId: number, nieuweVerrichting: Verrichting) {
     const postverrichtingUrl = this.url + `/${kasboekId}/verrichtingen`;
     const response = await fetch(postverrichtingUrl,

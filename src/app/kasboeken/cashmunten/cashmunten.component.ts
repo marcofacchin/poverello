@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, Input, numberAttribute, OnInit} from '@angular/core';
 import {MatTableModule} from '@angular/material/table';
 import {MatFormField, MatLabel} from '@angular/material/form-field';
 import {MatInput} from '@angular/material/input';
@@ -11,7 +11,7 @@ export interface MuntGewichtBedrag {
 }
 
 const ELEMENT_DATA: MuntGewichtBedrag[] = [
-  {naam: '2E', gewicht: 100.20, bedrag: 100.20},
+  {naam: '2E', gewicht: 100.20, bedrag: 123.20},
   {naam: '1E', gewicht: 100.20, bedrag: 100.20},
   {naam: '50cE', gewicht: 100.20, bedrag: 100.20},
   {naam: '20cE', gewicht: 100.20, bedrag: 100.20},
@@ -30,16 +30,17 @@ const ELEMENT_DATA: MuntGewichtBedrag[] = [
   standalone: true
 })
 export class Cashmunten {
+  @Input({transform: numberAttribute}) kasboekId: number;
   displayedColumns: string[] = ['naam', 'gewicht', 'bedrag'];
-  displayedFooterColumns: string[] = ['gewicht', 'bedrag'];
   dataSource = ELEMENT_DATA;
-  footerData: number[] = [0.0, 0.0];
-  totaalGewicht: number;
-  totaalBedrag: number;
 
-  ngOnInit() {
-    this.totaalGewicht = 600.23;
-    this.totaalBedrag = 500.23;
-    this.footerData = [this.totaalGewicht, this.totaalBedrag];
+  berekenTotaal(item: string) {
+    if (item === 'gewicht') {
+      return this.dataSource.map(rij => rij.gewicht).reduce((som, element) => (som + element), 0);
+    } else if (item === 'bedrag') {
+      return this.dataSource.map(rij => rij.bedrag).reduce((som, element) => (som + element), 0);
+    } else {
+      return 0;
+    }
   }
 }
