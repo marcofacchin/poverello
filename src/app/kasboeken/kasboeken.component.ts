@@ -9,12 +9,13 @@ import {KasboekService} from './kasboek.service';
 import {VerrichtingenTabel} from './verrichtingentabel/verrichtingentabel.component';
 import {NieuweverrichtingComponent} from './nieuweverrichting/nieuweverrichting.component';
 import {SortHeaderArrowPosition} from '@angular/material/sort';
+import {Cashmunten} from './cashmunten/cashmunten.component';
 
 @Component({
   selector: 'app-kasboeken',
   standalone: true,
   imports: [ReactiveFormsModule, MatFormFieldModule,
-    MatSelectModule, MatInputModule, FormsModule, VerrichtingenTabel, NieuweverrichtingComponent
+    MatSelectModule, MatInputModule, FormsModule, VerrichtingenTabel, NieuweverrichtingComponent, Cashmunten
   ],
   templateUrl: './kasboeken.component.html',
   styleUrl: './kasboeken.component.css'
