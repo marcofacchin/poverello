@@ -72,7 +72,22 @@ export class KasboekService {
         method: "DELETE"
       });
     if (!response.ok) {
-      console.error('Fout bij verwijderen verrichting');
+      console.error('Fout bij verwijderen verrichting ' + response.status);
+    }
+  }
+
+  async wijzigGewicht(kasboekId: number, muntId: number, gewicht: number) {
+    const fullUrl = this.url + `/${kasboekId}/${muntId}/muntgewicht`;
+    const response = await fetch(fullUrl,
+      {
+        method: "PATCH",
+        headers: {'Content-Type': "application/json"},
+        body: JSON.stringify(gewicht)
+      });
+    if (response.ok) {
+      console.log('gewicht aangepast');
+    } else {
+      console.error('Fout bij aanpassen gewicht ' + response.status);
     }
   }
 
