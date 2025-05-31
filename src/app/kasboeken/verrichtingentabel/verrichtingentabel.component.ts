@@ -40,27 +40,21 @@ import {Cashmunten} from '../cashmunten/cashmunten.component';
 })
 
 export class VerrichtingenTabel implements OnChanges, AfterViewInit {
+  @Input({transform: numberAttribute}) kasboekId: number;
   @Input({transform: numberAttribute}) afdelingId: number;
-  @Input({transform: numberAttribute}) jaar: number;
-  @Input({transform: numberAttribute}) maand: number;
   displayedColumns: string[] = ['volgnummer', 'dag', 'omschrijving', 'bedragin', 'bedraguit', 'ticket', 'type', 'wijzig', 'cancel', 'delete'];
   verrichtingen: Verrichting[] = [];
   dataSource = new MatTableDataSource(this.verrichtingen);
   kasboekService: KasboekService = inject(KasboekService);
-  kasboekId: number;
   private _liveAnnouncer = inject(LiveAnnouncer);
   @ViewChild(MatSort) sort: MatSort;
 
-  laadKasboek() {
-    if (!isNaN(this.afdelingId) && !isNaN(this.jaar) && !isNaN(this.maand)) {
-      this.kasboekService.getVerrichtingen(this.afdelingId, this.jaar, this.maand)
-        .then(kasboekdata => {
-          this.verrichtingen = kasboekdata.verrichtingen;
+  laadVerrichtingen() {
+    if (!isNaN(this.kasboekId)) {
+      this.kasboekService.getVerrichtingen(this.kasboekId)
+        .then(data => {
+          this.verrichtingen = data;
           this.dataSource.data = this.verrichtingen;
-          this.kasboekId = kasboekdata.id;
-          console.log("kasboek geladen");
-          console.log('boljetten: ' + kasboekdata.cash.totaalBedragBiljetten);
-          console.log('totaalBedragMunten2E: ' + kasboekdata.cashInEuro.totaalBedragMunten2E);
         })
         .catch((error) => {
           console.error('Verrichtingen konden niet worden opgehaald: ' + error);
@@ -71,7 +65,7 @@ export class VerrichtingenTabel implements OnChanges, AfterViewInit {
 
   ngOnChanges() {
     console.log("kasboek wordt geladen");
-    this.laadKasboek();
+    this.laadVerrichtingen();
   }
 
   ngAfterViewInit() {
@@ -79,7 +73,7 @@ export class VerrichtingenTabel implements OnChanges, AfterViewInit {
   }
 
   updateTabel() {
-    this.laadKasboek();
+    this.laadVerrichtingen();
   }
 
   /** Announce the change in sort state for assistive technology. */
@@ -102,7 +96,7 @@ export class VerrichtingenTabel implements OnChanges, AfterViewInit {
   verwijderen(oudeVolgnummer: number) {
     console.log('verrichting ' + oudeVolgnummer + ' wordt verwijderd');
     this.kasboekService.verwijderVerrichting(this.kasboekId, oudeVolgnummer)
-      .then(() => this.laadKasboek())
+      .then(() => this.laadVerrichtingen())
       .catch((error) => console.error('Fout: ' + error));
   }
 

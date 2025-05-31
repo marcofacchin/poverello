@@ -20,8 +20,8 @@ export class KasboekService {
     return await data.json() ?? [];
   }
 
-  async getVerrichtingen(afdelingId: number, jaar: number, maand: number) {
-    const verrichtingUrl = this.url + `/${afdelingId}/${jaar}/${maand}`;
+  async getVerrichtingen(kasboekId: number) {
+    const verrichtingUrl = this.url + `/${kasboekId}/verrichtingen`;
     const data = await fetch(verrichtingUrl);
     if (data.ok) {
       return await data.json() ?? [];

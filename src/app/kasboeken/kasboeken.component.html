@@ -27,14 +27,6 @@
     </mat-select>
   </mat-form-field>
   </form>
-  <verrichtingen-table
-    [hidden]="tabelIsOnzichtbaar"
-    [afdelingId]="afdelingId"
-    [jaar]="jaar"
-    [maand]="maand">
-  </verrichtingen-table>
-  <h4>Berekening Cash munten:</h4>
-  <cashmunten-table [kasboekId]="kasboekId"></cashmunten-table>
-
-
+  <verrichtingen-table [hidden]="tabelIsOnzichtbaar" [kasboekId]="kasboekId" [afdelingId]="afdelingId"></verrichtingen-table>
+  <cashmunten-table [hidden]="tabelIsOnzichtbaar" [kasboekId]="kasboekId"></cashmunten-table>
 </section>

@@ -79,7 +79,8 @@ export class KasboekenComponent implements OnInit {
     this.tabelIsOnzichtbaar = true;
     const afdelingId = this.kasboekFormulier.controls.afdeling.value;
     if (afdelingId !== null) {
-      this.kasboekService.getJaren(parseInt(afdelingId))
+      this.afdelingId = parseInt(afdelingId);
+      this.kasboekService.getJaren(this.afdelingId)
         .then((jaren) => {
           this.jaren = jaren;
           if (this.jaren.length !== 0) {
@@ -98,10 +99,10 @@ export class KasboekenComponent implements OnInit {
 
   public jaarHandler() {
     this.tabelIsOnzichtbaar = true;
-    const afdelingId = this.kasboekFormulier.controls.afdeling.value;
     const jaar = this.kasboekFormulier.controls.jaar.value;
-    if (afdelingId !== null && jaar !== null) {
-      this.kasboekService.getMaanden(parseInt(afdelingId), parseInt(jaar))
+    if (jaar !== null) {
+      this.jaar = parseInt(jaar);
+      this.kasboekService.getMaanden(this.afdelingId, this.jaar)
         .then((maanden) => {
           this.maanden = maanden;
           console.log('maanden: ' + maanden);
@@ -117,12 +118,8 @@ export class KasboekenComponent implements OnInit {
   }
 
   public maandHandler() {
-    const afdelingId = this.kasboekFormulier.controls.afdeling.value;
-    const jaar = this.kasboekFormulier.controls.jaar.value;
     const maand = this.kasboekFormulier.controls.maand.value;
-    if (afdelingId !== null && jaar !== null && maand !== null) {
-      this.afdelingId = parseInt(afdelingId);
-      this.jaar = parseInt(jaar);
+    if (maand !== null) {
       this.maand = parseInt(maand);
       this.kasboekService.getKasboekId(this.afdelingId, this.jaar, this.maand)
         .then(data => this.kasboekId = data)
