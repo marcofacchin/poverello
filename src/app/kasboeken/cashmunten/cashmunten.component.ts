@@ -16,12 +16,12 @@ export interface MuntGewichtBedrag {
 }
 
 const ELEMENT_DATA: MuntGewichtBedrag[] = [
-  {naam: '2E', gewicht: 100.20, bedrag: 123.20, grampereuro: 4.32},
-  {naam: '1E', gewicht: 100.20, bedrag: 100.20, grampereuro: 7.62},
-  {naam: '50cE', gewicht: 100.20, bedrag: 100.20, grampereuro: 15.8},
-  {naam: '20cE', gewicht: 100.20, bedrag: 100.20, grampereuro: 29},
-  {naam: '10cE', gewicht: 100.20, bedrag: 100.20, grampereuro: 42},
-  {naam: 'bruinE', gewicht: 100.20, bedrag: 100.20, grampereuro: 84}
+  {naam: '2E', gewicht: 0.0, bedrag: 0.0, grampereuro: 4.32},
+  {naam: '1E', gewicht: 0.0, bedrag: 0.0, grampereuro: 7.62},
+  {naam: '50cE', gewicht: 0.0, bedrag: 0.0, grampereuro: 15.8},
+  {naam: '20cE', gewicht: 0.0, bedrag: 0.0, grampereuro: 29},
+  {naam: '10cE', gewicht: 0.0, bedrag: 0.0, grampereuro: 42},
+  {naam: 'bruinE', gewicht: 0.0, bedrag: 0.0, grampereuro: 84}
 ];
 
 
@@ -73,6 +73,7 @@ export class Cashmunten implements OnChanges {
           const cashGewichtenArray = Object.values(this.cashGewichten).slice(0,6);
           for (var i: number = 0; i<6; i++) {
             this.dataSource[i].gewicht = cashGewichtenArray[i];
+            this.setWaardeVanInput(i, this.dataSource[i].gewicht.toString());
             this.berekenBedrag(i);
           }
         })
@@ -82,7 +83,7 @@ export class Cashmunten implements OnChanges {
     }
   }
 
-  waardeVanInput(rij: number) {
+  getWaardeVanInput(rij: number) {
     switch (rij) {
       case 0:
         return this.cashFormulier.controls.input0.value;
@@ -101,8 +102,33 @@ export class Cashmunten implements OnChanges {
     }
   }
 
+  setWaardeVanInput(rij: number, waarde: string) {
+    switch (rij) {
+      case 0:
+        this.cashFormulier.controls.input0.setValue(waarde);
+        break;
+      case 1:
+        this.cashFormulier.controls.input1.setValue(waarde);
+        break;
+      case 2:
+        this.cashFormulier.controls.input2.setValue(waarde);
+        break;
+      case 3:
+        this.cashFormulier.controls.input3.setValue(waarde);
+        break;
+      case 4:
+        this.cashFormulier.controls.input4.setValue(waarde);
+        break;
+      case 5:
+        this.cashFormulier.controls.input5.setValue(waarde);
+        break;
+      default:
+        break;
+    }
+  }
+
   gewichtUpdateHandler(rij: number) {
-    const inputwaarde = this.waardeVanInput(rij);
+    const inputwaarde = this.getWaardeVanInput(rij);
     if (inputwaarde !== null) {
       this.dataSource[rij].gewicht = parseFloat(inputwaarde);
     } else {

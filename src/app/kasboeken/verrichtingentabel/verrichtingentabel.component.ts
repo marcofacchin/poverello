@@ -20,7 +20,7 @@ import {NgIf} from '@angular/common';
 import {MatButton} from '@angular/material/button';
 import {MatFormField, MatLabel} from '@angular/material/form-field';
 import {MatInput} from '@angular/material/input';
-import {ReactiveFormsModule} from '@angular/forms';
+import {FormControl, FormGroup, ReactiveFormsModule} from '@angular/forms';
 import {MatCheckbox} from '@angular/material/checkbox';
 import {OmschrijvingComponent} from '../omschrijving/omschrijving.component';
 import {MatSort, MatSortHeader, Sort, SortHeaderArrowPosition} from '@angular/material/sort';
@@ -45,7 +45,12 @@ export class VerrichtingenTabel implements OnChanges, AfterViewInit {
   displayedColumns: string[] = ['volgnummer', 'dag', 'omschrijving', 'bedragin', 'bedraguit', 'ticket', 'type', 'wijzig', 'cancel', 'delete'];
   verrichtingen: Verrichting[] = [];
   dataSource = new MatTableDataSource(this.verrichtingen);
+  berekendSaldo: number;
+  verschilSaldos: number;
   kasboekService: KasboekService = inject(KasboekService);
+  saldoFormulier = new FormGroup({
+    werkelijkSaldoInput: new FormControl(''),
+  });
   private _liveAnnouncer = inject(LiveAnnouncer);
   @ViewChild(MatSort) sort: MatSort;
 
@@ -55,6 +60,7 @@ export class VerrichtingenTabel implements OnChanges, AfterViewInit {
         .then(data => {
           this.verrichtingen = data;
           this.dataSource.data = this.verrichtingen;
+          this.berekendSaldo = parseFloat((this.berekenTotaal('IN') - this.berekenTotaal('UIT')).toFixed(2));
         })
         .catch((error) => {
           console.error('Verrichtingen konden niet worden opgehaald: ' + error);
@@ -103,5 +109,30 @@ export class VerrichtingenTabel implements OnChanges, AfterViewInit {
   autocompleteHandler(inhoud: string) {
   }
 
+  berekenTotaal(item: string) {
+    let totaal = 0.0;
+    if (item === 'IN') {
+      totaal = this.dataSource.data.map(rij => rij.bedrag)
+        .filter(element => element > 0)
+        .reduce((acc, el) => (acc + el), 0);
+      totaal = parseFloat(totaal.toFixed(2));
+    } else if (item === 'UIT') {
+      totaal = this.dataSource.data.map(rij => rij.bedrag)
+        .filter(element => element < 0)
+        .reduce((acc, el) => (acc + el), 0);
+      totaal = Math.abs(parseFloat(totaal.toFixed(2)));
+    } else if (item === 'tickets') {
+      totaal = this.dataSource.data.map(rij => rij.kasticket)
+        .filter(el => el).length;
+    }
+    return totaal;
+  }
 
+  saldoUpdateHandler() {
+    const werkelijSaldoInput = this.saldoFormulier.controls.werkelijkSaldoInput.value;
+    if (werkelijSaldoInput !== null) {
+      this.verschilSaldos = parseFloat((parseFloat(werkelijSaldoInput) - this.berekendSaldo).toFixed(2));
+    }
+
+  }
 }
