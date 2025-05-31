@@ -40,6 +40,16 @@ export class KasboekService {
     }
   }
 
+  async getCash(kasboekId: number) {
+    const cashUrl = this.url + `/${kasboekId}/cash`;
+    const data = await fetch(cashUrl);
+    if (data.ok) {
+      return await data.json() ?? [];
+    } else {
+      console.error('Fout bij ophalen cash gewichten');
+    }
+  }
+
   async postVerrichting(kasboekId: number, nieuweVerrichting: Verrichting) {
     const postverrichtingUrl = this.url + `/${kasboekId}/verrichtingen`;
     const response = await fetch(postverrichtingUrl,

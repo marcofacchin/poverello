@@ -1,8 +1,10 @@
-import {Component, Input, numberAttribute, OnInit} from '@angular/core';
+import {Component, inject, Input, numberAttribute, OnChanges} from '@angular/core';
 import {MatTableModule} from '@angular/material/table';
 import {MatFormField, MatLabel} from '@angular/material/form-field';
 import {MatInput} from '@angular/material/input';
 import {MatButton} from '@angular/material/button';
+import {KasboekService} from '../kasboek.service';
+import {Cashmetgewichten} from './cashmetgewichten';
 
 export interface MuntGewichtBedrag {
   naam: string;
@@ -19,6 +21,7 @@ const ELEMENT_DATA: MuntGewichtBedrag[] = [
   {naam: 'bruinE', gewicht: 100.20, bedrag: 100.20}
 ];
 
+
 /**
  * @title Basic use of `<table mat-table>`
  */
@@ -29,10 +32,12 @@ const ELEMENT_DATA: MuntGewichtBedrag[] = [
   imports: [MatTableModule, MatFormField, MatInput, MatLabel, MatButton],
   standalone: true
 })
-export class Cashmunten {
+export class Cashmunten implements OnChanges {
   @Input({transform: numberAttribute}) kasboekId: number;
   displayedColumns: string[] = ['naam', 'gewicht', 'bedrag'];
   dataSource = ELEMENT_DATA;
+  cashGewichten: Cashmetgewichten;
+  kasboekService: KasboekService = inject(KasboekService);
 
   berekenTotaal(item: string) {
     if (item === 'gewicht') {
@@ -42,5 +47,22 @@ export class Cashmunten {
     } else {
       return 0;
     }
+  }
+
+  laadCashGewichten() {
+    if (!isNaN(this.kasboekId)) {
+      this.kasboekService.getCash(this.kasboekId)
+        .then(data => {
+          this.cashGewichten = data;
+          console.log(this.cashGewichten);
+        })
+        .catch((error) => {
+          console.error('Gewichten cash konden niet worden opgehaald: ' + error);
+        });
+    }
+  }
+
+  ngOnChanges() {
+    this.laadCashGewichten();
   }
 }
