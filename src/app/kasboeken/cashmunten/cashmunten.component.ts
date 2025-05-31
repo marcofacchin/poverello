@@ -5,20 +5,22 @@ import {MatInput} from '@angular/material/input';
 import {MatButton} from '@angular/material/button';
 import {KasboekService} from '../kasboek.service';
 import {Cashmetgewichten} from './cashmetgewichten';
+import {VerrichtingsType} from '../nieuweverrichting/verrichtings-type';
 
 export interface MuntGewichtBedrag {
   naam: string;
   gewicht: number;
   bedrag: number;
+  grampereuro: number;
 }
 
 const ELEMENT_DATA: MuntGewichtBedrag[] = [
-  {naam: '2E', gewicht: 100.20, bedrag: 123.20},
-  {naam: '1E', gewicht: 100.20, bedrag: 100.20},
-  {naam: '50cE', gewicht: 100.20, bedrag: 100.20},
-  {naam: '20cE', gewicht: 100.20, bedrag: 100.20},
-  {naam: '10cE', gewicht: 100.20, bedrag: 100.20},
-  {naam: 'bruinE', gewicht: 100.20, bedrag: 100.20}
+  {naam: '2E', gewicht: 100.20, bedrag: 123.20, grampereuro: 4.32},
+  {naam: '1E', gewicht: 100.20, bedrag: 100.20, grampereuro: 4.32},
+  {naam: '50cE', gewicht: 100.20, bedrag: 100.20, grampereuro: 4.32},
+  {naam: '20cE', gewicht: 100.20, bedrag: 100.20, grampereuro: 4.32},
+  {naam: '10cE', gewicht: 100.20, bedrag: 100.20, grampereuro: 4.32},
+  {naam: 'bruinE', gewicht: 100.20, bedrag: 100.20, grampereuro: 4.32}
 ];
 
 
@@ -54,7 +56,12 @@ export class Cashmunten implements OnChanges {
       this.kasboekService.getCash(this.kasboekId)
         .then(data => {
           this.cashGewichten = data;
-          console.log(this.cashGewichten);
+          const gewichtenarray = Object.values(this.cashGewichten).slice(0,6);
+          for (var i: number = 0; i<6; i++) {
+            this.dataSource[i].gewicht = gewichtenarray[i];
+            this.dataSource[i].bedrag = (gewichtenarray[i]/(this.dataSource[i].grampereuro));
+            this.dataSource[i].bedrag = parseFloat(this.dataSource[i].bedrag.toFixed(2));
+          }
         })
         .catch((error) => {
           console.error('Gewichten cash konden niet worden opgehaald: ' + error);
