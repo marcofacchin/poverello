@@ -76,6 +76,21 @@ export class KasboekService {
     }
   }
 
+  async wijzigVerrichting(kasboekId: number, volgnummer: number, nieuweVerrichting: Verrichting) {
+    const fullUrl = this.url + `/${kasboekId}/verrichtingen/${volgnummer}`;
+    const response = await fetch(fullUrl,
+      {
+        method: "PATCH",
+        headers: {'Content-Type': "application/json"},
+        body: JSON.stringify(nieuweVerrichting)
+      });
+    if (response.ok) {
+      console.log('verrichting aangepast');
+    } else {
+      console.error('Fout bij aanpassen verrichting ' + response.status);
+    }
+  }
+
   async wijzigGewicht(kasboekId: number, muntId: number, gewicht: number) {
     const fullUrl = this.url + `/${kasboekId}/${muntId}/muntgewicht`;
     const response = await fetch(fullUrl,

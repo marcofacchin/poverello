@@ -96,7 +96,6 @@ export class VerrichtingenTabel implements OnChanges, AfterViewInit {
   }
 
   opslaan(oudeVolgnummer: number) {
-    console.log('verrichting ' + oudeVolgnummer + ' wordt aangepast');
   }
 
   verwijderen(oudeVolgnummer: number) {
