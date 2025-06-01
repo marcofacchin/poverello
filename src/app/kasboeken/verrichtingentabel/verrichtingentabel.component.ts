@@ -1,13 +1,13 @@
 import {
   AfterViewInit,
   booleanAttribute,
-  Component,
+  Component, EventEmitter,
   inject,
   Input,
   input,
   numberAttribute,
   OnChanges,
-  OnInit,
+  OnInit, Output,
   SimpleChanges, ViewChild
 } from '@angular/core';
 import {MatRow, MatTableDataSource, MatTableModule} from '@angular/material/table';
@@ -45,6 +45,8 @@ import {VerrichtingsType} from '../nieuweverrichting/verrichtings-type';
 export class VerrichtingenTabel implements OnChanges, AfterViewInit {
   @Input({transform: numberAttribute}) kasboekId: number;
   @Input({transform: numberAttribute}) afdelingId: number;
+  @Input({transform: numberAttribute}) refresh: number;
+  @Output() updateNieuweVerrichtingEvent = new EventEmitter<boolean>();
   displayedColumns: string[] = ['volgnummer', 'dag', 'omschrijving', 'bedragin', 'bedraguit', 'ticket', 'type', 'wijzig', 'cancel', 'delete'];
   verrichtingen: Verrichting[] = [];
   dataSource = new MatTableDataSource(this.verrichtingen);
@@ -69,6 +71,7 @@ export class VerrichtingenTabel implements OnChanges, AfterViewInit {
 
   laadVerrichtingen() {
     if (!isNaN(this.kasboekId)) {
+      console.log("verrichtingen worden geladen");
       this.kasboekService.getVerrichtingen(this.kasboekId)
         .then(data => {
           this.verrichtingen = data;
@@ -83,7 +86,6 @@ export class VerrichtingenTabel implements OnChanges, AfterViewInit {
   }
 
   ngOnChanges() {
-    console.log("kasboek wordt geladen");
     this.laadVerrichtingen();
   }
 
@@ -149,6 +151,7 @@ export class VerrichtingenTabel implements OnChanges, AfterViewInit {
       this.kasboekService.wijzigVerrichting(this.kasboekId, oudeVolgnummer, nieuweverrichting)
         .then(() => {
           this.updateTabel();
+          this.updateNieuweVerrichtingEvent.emit(true);
         })
         .catch((error) => console.error(error));
     } else {
@@ -166,7 +169,6 @@ export class VerrichtingenTabel implements OnChanges, AfterViewInit {
   }
 
   verwijderen(oudeVolgnummer: number) {
-    console.log('verrichting ' + oudeVolgnummer + ' wordt verwijderd');
     this.kasboekService.verwijderVerrichting(this.kasboekId, oudeVolgnummer)
       .then(() => this.laadVerrichtingen())
       .catch((error) => console.error('Fout: ' + error));

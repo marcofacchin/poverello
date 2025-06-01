@@ -64,6 +64,7 @@ export class OmschrijvingComponent implements OnInit, OnChanges {
     console.log("autocomplete wordt gereset");
     this.autocompleteFormulier.controls.omschrijving.reset();
     if (!isNaN(this.afdelingId)) {
+      console.log("omschrijvingen worden geladen");
       this.omschrijvingService.getOmschrijvingen(this.afdelingId)
         .then(beknopteomschrijvingen => {
           this.omschrijvingen = beknopteomschrijvingen;

@@ -36,10 +36,12 @@ export class KasboekenComponent implements OnInit {
   jaar: number;
   maand: number;
   kasboekId: number;
-  tabelIsOnzichtbaar = false;
+  inhoudOnzichtbaar = false;
   paginaGeladen = false;
   verbergFormulier = true;
   laadtijd: number;
+  refreshVerrichtingenTabel: number = 0;
+  refreshNieuweVerrichting: number = 0;
 
   constructor() {
     const start = new Date().getTime();
@@ -55,8 +57,16 @@ export class KasboekenComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.tabelIsOnzichtbaar = true;
+    this.inhoudOnzichtbaar = true;
     this.zetMaandInputUit();
+  }
+
+  updateVerrichtingenTabel() {
+    this.refreshVerrichtingenTabel++;
+  }
+
+  updateNieuweVerrichting() {
+    this.refreshNieuweVerrichting++;
   }
 
   public zetMaandInputUit() {
@@ -76,7 +86,7 @@ export class KasboekenComponent implements OnInit {
   }
 
   public afdelingHandler() {
-    this.tabelIsOnzichtbaar = true;
+    this.inhoudOnzichtbaar = true;
     const afdelingId = this.kasboekFormulier.controls.afdeling.value;
     if (afdelingId !== null) {
       this.afdelingId = parseInt(afdelingId);
@@ -98,7 +108,7 @@ export class KasboekenComponent implements OnInit {
   }
 
   public jaarHandler() {
-    this.tabelIsOnzichtbaar = true;
+    this.inhoudOnzichtbaar = true;
     const jaar = this.kasboekFormulier.controls.jaar.value;
     if (jaar !== null) {
       this.jaar = parseInt(jaar);
@@ -124,7 +134,7 @@ export class KasboekenComponent implements OnInit {
       this.kasboekService.getKasboekId(this.afdelingId, this.jaar, this.maand)
         .then(data => this.kasboekId = data)
         .catch(error => console.error('Kasboek id kon niet worden opgehaald: ' + error));
-      this.tabelIsOnzichtbaar = false;
+      this.inhoudOnzichtbaar = false;
     }
   }
 

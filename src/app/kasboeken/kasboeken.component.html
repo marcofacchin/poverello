@@ -29,6 +29,19 @@
     </mat-select>
   </mat-form-field>
   </form>
-  <verrichtingen-table [hidden]="tabelIsOnzichtbaar" [kasboekId]="kasboekId" [afdelingId]="afdelingId"></verrichtingen-table>
-  <cashmunten-table [hidden]="tabelIsOnzichtbaar" [kasboekId]="kasboekId"></cashmunten-table>
+  <div id="inhoud" [hidden]="inhoudOnzichtbaar">
+    <nieuweverrichting-formulier
+      [kasboekId]="kasboekId"
+      [afdelingId]="afdelingId"
+      [refresh]="refreshNieuweVerrichting"
+      (updateVerrichtingenTabelEvent)="updateVerrichtingenTabel()"
+    ></nieuweverrichting-formulier>
+    <verrichtingen-table
+      [kasboekId]="kasboekId"
+      [afdelingId]="afdelingId"
+      [refresh]="refreshVerrichtingenTabel"
+      (updateNieuweVerrichtingEvent)="updateNieuweVerrichting()"
+    ></verrichtingen-table>
+    <cashmunten-table [kasboekId]="kasboekId"></cashmunten-table>
+  </div>
 </section>

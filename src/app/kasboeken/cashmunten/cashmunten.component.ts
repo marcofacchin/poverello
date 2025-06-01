@@ -50,6 +50,10 @@ export class Cashmunten implements OnChanges {
     input5: new FormControl('')
   });
 
+  ngOnChanges() {
+    this.laadCashGewichten();
+  }
+
   berekenTotaal(item: string) {
     let totaal = 0.0;
     if (item === 'gewicht') {
@@ -67,6 +71,7 @@ export class Cashmunten implements OnChanges {
 
   laadCashGewichten() {
     if (!isNaN(this.kasboekId)) {
+      console.log("gewichten van munten worden opgehaald");
       this.kasboekService.getCash(this.kasboekId)
         .then(data => {
           this.cashGewichten = data;
@@ -138,7 +143,4 @@ export class Cashmunten implements OnChanges {
     this.kasboekService.wijzigGewicht(this.kasboekId, rij, this.dataSource[rij].gewicht);
   }
 
-  ngOnChanges() {
-    this.laadCashGewichten();
-  }
 }

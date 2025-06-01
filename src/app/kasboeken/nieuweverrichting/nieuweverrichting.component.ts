@@ -52,6 +52,7 @@ import {VerrichtingsType} from './verrichtings-type';
 export class NieuweverrichtingComponent implements OnInit, OnChanges {
   @Input({transform: numberAttribute}) afdelingId: number;
   @Input({transform: numberAttribute}) kasboekId: number;
+  @Input({transform: numberAttribute}) refresh: number;
   @Output() updateVerrichtingenTabelEvent = new EventEmitter<boolean>();
   formulier = new FormGroup({
     volgnummer: new FormControl(''),
@@ -98,9 +99,12 @@ export class NieuweverrichtingComponent implements OnInit, OnChanges {
         .then(() => {
           this.updateVerrichtingenTabelEvent.emit(true);
           this.focusOpVolgnummer();
+          this.formulier.controls.volgnummer.reset();
+          this.formulier.controls.dag.reset();
+          this.resetOmschrijvingControl++;
           this.formulier.controls.bedrag.reset();
           this.formulier.controls.ticket.reset();
-          this.resetOmschrijvingControl++;
+          this.formulier.controls.type.reset();
         })
         .catch((error) => console.error(error));
     } else {
@@ -123,15 +127,16 @@ export class NieuweverrichtingComponent implements OnInit, OnChanges {
 
   ngOnInit() {
     this.focusOpVolgnummer();
+    this.resetOmschrijvingControl++;
   }
 
   ngOnChanges() {
     this.focusOpVolgnummer();
+    this.resetOmschrijvingControl++;
   }
 
   autocompleteHandler(inhoud: string) {
     this.omschrijving = inhoud;
   }
-
 
 }
