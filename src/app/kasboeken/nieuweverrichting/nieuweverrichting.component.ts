@@ -123,8 +123,6 @@ export class NieuweverrichtingComponent implements OnInit, OnChanges {
 
   ngOnInit() {
     this.focusOpVolgnummer();
-    console.log("verrichtingstypesssss:");
-    console.log(this.verrichtingstypesArray);
   }
 
   ngOnChanges() {
