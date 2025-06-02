@@ -1,65 +1,47 @@
-<mat-grid-list cols="4" rowHeight="4:1">
-  <!--<mat-grid-tile [colspan]="4" [rowspan]="1" [style.background]="kleur1">-->
-    <div id="kasboek-selectie">
-      <h2>Kasboeken</h2>
-      <div id="loading" class="loading" [hidden]="paginaGeladen">
-        De applicatie wordt opgestart, dit duurt ongeveer 3 minuten
-      </div>
-      <form [formGroup]="kasboekFormulier" [hidden]="verbergFormulier">
-        <mat-form-field>
-          <mat-label>Afdeling:</mat-label>
-          <mat-select formControlName="afdeling" (selectionChange)="afdelingHandler()">
-            @for (afdeling of afdelingen; track afdeling.id) {
-              <mat-option [value]="afdeling.id">{{ afdeling.naam }}</mat-option>
-            }
-          </mat-select>
-        </mat-form-field>
-        <mat-form-field>
-          <mat-label>Jaar:</mat-label>
-          <mat-select formControlName="jaar" (selectionChange)="jaarHandler()">
-            @for (jaar of jaren; track jaar) {
-              <mat-option [value]="jaar">{{ jaar }}</mat-option>
-            }
-          </mat-select>
-        </mat-form-field>
-        <mat-form-field>
-          <mat-label>Maand:</mat-label>
-          <mat-select formControlName="maand" (selectionChange)="maandHandler()">
-            @for (maand of maanden; track maand) {
-              <mat-option [value]="maand">{{ maand }}</mat-option>
-            }
-          </mat-select>
-        </mat-form-field>
-      </form>
-    </div>
-  <!--</mat-grid-tile>-->
-  <div id="inhoud" [hidden]="inhoudOnzichtbaar">
-    <mat-grid-tile [colspan]="3" [style.background]="kleur2">
-      <div id="nieuweverrichting">
-        <nieuweverrichting-formulier
-          [kasboekId]="kasboekId"
-          [afdelingId]="afdelingId"
-          [refresh]="refreshNieuweVerrichting"
-          (updateVerrichtingenTabelEvent)="updateVerrichtingenTabel()"
-        ></nieuweverrichting-formulier>
-      </div>
-    </mat-grid-tile>
-    <mat-grid-tile [rowspan]="6" [style.background]="kleur2">
-      <div id="cashmunten">
-        <cashmunten-table [kasboekId]="kasboekId"></cashmunten-table>
-      </div>
-    </mat-grid-tile>
-    <mat-grid-tile [colspan]="3" [rowspan]="6" [style.background]="kleur1">
-      <div id="verrichtingen">
-        <verrichtingen-table
-          [kasboekId]="kasboekId"
-          [afdelingId]="afdelingId"
-          [refresh]="refreshVerrichtingenTabel"
-          (updateNieuweVerrichtingEvent)="updateNieuweVerrichting()"
-        ></verrichtingen-table>
-      </div>
-    </mat-grid-tile>
-
-    <mat-grid-tile [style.background]="kleur1">testtest</mat-grid-tile>
+<section>
+  <h2>Kasboeken</h2>
+  <div id="loading" class="loading" [hidden]="paginaGeladen">
+    De applicatie wordt opgestart, dit duurt ongeveer 3 minuten
   </div>
-</mat-grid-list>
+  <form [formGroup]="kasboekFormulier" [hidden]="verbergFormulier">
+  <mat-form-field>
+    <mat-label>Afdeling:</mat-label>
+    <mat-select formControlName="afdeling" (selectionChange)="afdelingHandler()">
+      @for (afdeling of afdelingen; track afdeling.id) {
+        <mat-option [value]="afdeling.id">{{afdeling.naam}}</mat-option>
+      }
+    </mat-select>
+  </mat-form-field>
+  <mat-form-field>
+    <mat-label>Jaar:</mat-label>
+    <mat-select formControlName="jaar" (selectionChange)="jaarHandler()">
+      @for (jaar of jaren; track jaar) {
+        <mat-option [value]="jaar">{{jaar}}</mat-option>
+      }
+    </mat-select>
+  </mat-form-field>
+  <mat-form-field>
+    <mat-label>Maand:</mat-label>
+    <mat-select formControlName="maand" (selectionChange)="maandHandler()">
+      @for (maand of maanden; track maand) {
+        <mat-option [value]="maand">{{maand}}</mat-option>
+      }
+    </mat-select>
+  </mat-form-field>
+  </form>
+  <div id="inhoud" [hidden]="inhoudOnzichtbaar">
+    <nieuweverrichting-formulier
+      [kasboekId]="kasboekId"
+      [afdelingId]="afdelingId"
+      [refresh]="refreshNieuweVerrichting"
+      (updateVerrichtingenTabelEvent)="updateVerrichtingenTabel()"
+    ></nieuweverrichting-formulier>
+    <verrichtingen-table
+      [kasboekId]="kasboekId"
+      [afdelingId]="afdelingId"
+      [refresh]="refreshVerrichtingenTabel"
+      (updateNieuweVerrichtingEvent)="updateNieuweVerrichting()"
+    ></verrichtingen-table>
+    <cashmunten-table [kasboekId]="kasboekId"></cashmunten-table>
+  </div>
+</section>
