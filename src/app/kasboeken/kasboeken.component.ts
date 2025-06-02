@@ -10,12 +10,13 @@ import {VerrichtingenTabel} from './verrichtingentabel/verrichtingentabel.compon
 import {NieuweverrichtingComponent} from './nieuweverrichting/nieuweverrichting.component';
 import {SortHeaderArrowPosition} from '@angular/material/sort';
 import {Cashmunten} from './cashmunten/cashmunten.component';
+import {MatGridList, MatGridTile} from '@angular/material/grid-list';
 
 @Component({
   selector: 'app-kasboeken',
   standalone: true,
   imports: [ReactiveFormsModule, MatFormFieldModule,
-    MatSelectModule, MatInputModule, FormsModule, VerrichtingenTabel, NieuweverrichtingComponent, Cashmunten
+    MatSelectModule, MatInputModule, FormsModule, VerrichtingenTabel, NieuweverrichtingComponent, Cashmunten, MatGridList, MatGridTile
   ],
   templateUrl: './kasboeken.component.html',
   styleUrl: './kasboeken.component.css'
@@ -42,6 +43,8 @@ export class KasboekenComponent implements OnInit {
   laadtijd: number;
   refreshVerrichtingenTabel: number = 0;
   refreshNieuweVerrichting: number = 0;
+  kleur1 = 'lightpink';
+  kleur2 = 'lightblue';
 
   constructor() {
     const start = new Date().getTime();
