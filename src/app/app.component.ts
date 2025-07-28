@@ -10,12 +10,14 @@ import {HomeComponent} from './home/home.component';
   ],
   template: `
     <main>
-      <a [routerLink]="['/']">
+
         <header class="brand-name">
+          <a [routerLink]="['/']">
           <!--<img class="brand-logo" src="/assets/logo.svg" alt="logo" aria-hidden="true">-->
           <h1>Adminello</h1>
+          </a>
+          <h4><i>Administratieve tools voor Poverello vzw</i></h4>
         </header>
-      </a>
       <section class="content">
         <router-outlet></router-outlet>
       </section>
