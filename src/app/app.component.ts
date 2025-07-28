@@ -14,6 +14,7 @@ import {HomeComponent} from './home/home.component';
         <header class="brand-name">
           <!--<img class="brand-logo" src="/assets/logo.svg" alt="logo" aria-hidden="true">-->
           <h1>Adminello</h1>
+          <h5><i>Administratieve tools voor Poverello vzw</i></h5>
         </header>
       </a>
       <section class="content">
