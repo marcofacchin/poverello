@@ -5,6 +5,7 @@
     <mat-progress-spinner mode="indeterminate" [diameter]=20></mat-progress-spinner>
   </div>
   <form [formGroup]="kasboekFormulier" [hidden]="verbergFormulier">
+    Formulier
     <mat-form-field>
       <mat-label>Afdeling:</mat-label>
       <mat-select formControlName="afdeling" (selectionChange)="afdelingHandler()">
@@ -31,6 +32,7 @@
     </mat-form-field>
   </form>
   <div id="inhoud" [hidden]="inhoudOnzichtbaar">
+    Inhoud
     <nieuweverrichting-formulier
       [kasboekId]="kasboekId"
       [afdelingId]="afdelingId"
