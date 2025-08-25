@@ -24,6 +24,10 @@ button {
   border-radius: 8px;
 }
 
+.loading {
+  height: 100%;
+}
+
 @media (min-width: 500px) and (max-width: 768px) {
   .results {
     grid-template-columns: repeat(2, 1fr);
